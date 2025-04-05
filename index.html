@@ -33,9 +33,6 @@
         shape.display();
       });
       
-      if (frameCount % 60 === 0 && shapes.length < 90) {
-        shapes.push(createRandomShape());
-      }
       
       shapes = shapes.filter(shape => !shape.isOffscreen());
     }
