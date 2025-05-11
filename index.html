@@ -41,26 +41,15 @@
       strokeWeight(s / random([8, 10]));
     }
 
-    // Add this function to handle window resizing
-    function windowResized() {
-      let canvasWidth = min(800, windowWidth * 0.95);
-      let canvasHeight = canvasWidth * (250 / 800);
-
-      resizeCanvas(canvasWidth, canvasHeight);
-      s = (width - 2 * margin) / n;
-      strokeWeight(s / random([8, 10]));
-
-      // Redraw when window is resized
-      redraw();
+    function mousePressed() {
+      if (mouseX >= 0 && mouseX < width && mouseY >= 0 && mouseY < height) {
+        redraw()
+      }
     }
 
     function draw() {
 
       background(background_color);
-
-      if (random() < 1 / 3) {
-        fill_colors = [random(fill_colors)];
-      }
 
       if (random() < 1 / 2) {
         make_dots();
@@ -105,7 +94,6 @@
     }
   </script>
   <style>
-    /* Basic resets */
     * {
       margin: 0;
       padding: 0;
@@ -128,7 +116,6 @@
       padding: 30px 0;
     }
 
-    /* Canvas container styles */
     #canvas-container {
       width: 800px;
       height: 250px;
@@ -137,11 +124,9 @@
       position: relative;
       z-index: 100;
       background-color: #282828;
-      /* Gruvbox darker background for contrast */
       border-radius: 5px;
     }
 
-    /* Make sure canvas stays inside container */
     #canvas-container canvas {
       display: block;
       margin: 0 auto;
@@ -153,7 +138,6 @@
       margin: 20px 0;
       font-size: 0.95rem;
       color: #a89984;
-      /* Gruvbox muted */
       padding: 0 0px;
     }
 
@@ -167,7 +151,6 @@
       margin-bottom: 20px;
       line-height: 1.2;
       color: #fb4934;
-      /* Gruvbox red */
     }
 
     .hero p {
@@ -182,7 +165,6 @@
     .links a {
       text-decoration: none;
       color: #b8bb26;
-      /* Gruvbox green */
       margin-right: 15px;
       font-weight: 500;
       cursor: pointer;
@@ -191,7 +173,6 @@
 
     .links a:hover {
       color: #8ec07c;
-      /* Gruvbox light green */
       text-decoration: underline;
     }
 
@@ -201,13 +182,11 @@
       margin-bottom: 20px;
       font-weight: 700;
       color: #83a598;
-      /* Gruvbox blue */
     }
 
     .industry-item {
       margin-bottom: 40px;
       border-left: 2px solid #504945;
-      /* Gruvbox muted border */
       padding-left: 15px;
     }
 
@@ -216,7 +195,6 @@
       font-weight: 600;
       margin-bottom: 5px;
       color: #fabd2f;
-      /* Gruvbox yellow */
     }
 
     .industry-item .dates {
@@ -282,7 +260,6 @@
       color: #ebdbb2;
     }
 
-    /* Add some gruvbox-themed borders and accents */
     .hero,
     .industry {
       border-bottom: 1px solid #504945;
@@ -318,14 +295,14 @@
       }
 
       .links a {
-        margin-right: 10px;
-        font-size: 0.9rem;
+        font-size: 1.5rem;
+        text-align: center;
       }
     }
 
     @media (max-width: 600px) {
 
-      /* Further adjustments for mobile */
+      /* adjustments for mobile */
       .hero h1 {
         font-size: 1.8rem;
         margin-bottom: 15px;
@@ -336,19 +313,28 @@
       }
 
       .industry h2 {
-        font-size: 1.4rem;
+        font-size: 1.7rem;
       }
 
       .industry-item h3 {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
       }
 
       .industry-item p,
       .personal-blurb {
-        font-size: 0.9rem;
+        font-size: 1.2rem;
       }
 
-      /* Stack links vertically on very small screens */
+      .industry-item p,
+      .role {
+        font-size: 1.3rem;
+      }
+
+      .industry-item .dates {
+        font-size: 1.2rem;
+      }
+
+      /* vertical links */
       .links {
         display: flex;
         flex-direction: column;
