@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <title>Rob</title>
   <!-- p5.js -->
@@ -26,13 +27,31 @@
     let margin = 50;
 
     function setup() {
-      // Create canvas with the exact dimensions of the container
-      canvas = createCanvas(800, 250);
+      // Create a responsive canvas
+      let canvasWidth = min(800, windowWidth * 0.95);
+      let canvasHeight = canvasWidth * (250 / 800); // maintain aspect ratio
+
+      canvas = createCanvas(canvasWidth, canvasHeight);
       canvas.parent("canvas-container");
       noLoop();
+
+      // Adjust grid parameters based on canvas size
       n = floor(random(9, 10));
       s = (width - 2 * margin) / n;
       strokeWeight(s / random([8, 10]));
+    }
+
+    // Add this function to handle window resizing
+    function windowResized() {
+      let canvasWidth = min(800, windowWidth * 0.95);
+      let canvasHeight = canvasWidth * (250 / 800);
+
+      resizeCanvas(canvasWidth, canvasHeight);
+      s = (width - 2 * margin) / n;
+      strokeWeight(s / random([8, 10]));
+
+      // Redraw when window is resized
+      redraw();
     }
 
     function draw() {
@@ -275,6 +294,71 @@
       /* Gruvbox dark yellow */
       margin-bottom: 10px;
       font-size: 1.1rem;
+    }
+
+    @media (max-width: 850px) {
+
+      /* Adjust container width for smaller screens */
+      .container {
+        width: 95%;
+        padding: 20px 0;
+      }
+
+      /* Make the canvas container responsive */
+      #canvas-container {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        overflow: hidden;
+      }
+
+      /* Adjust font sizes */
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .links a {
+        margin-right: 10px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      /* Further adjustments for mobile */
+      .hero h1 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+      }
+
+      .industry-item {
+        padding-left: 10px;
+      }
+
+      .industry h2 {
+        font-size: 1.4rem;
+      }
+
+      .industry-item h3 {
+        font-size: 1.1rem;
+      }
+
+      .industry-item p,
+      .personal-blurb {
+        font-size: 0.9rem;
+      }
+
+      /* Stack links vertically on very small screens */
+      .links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .links a {
+        display: inline-block;
+        margin-bottom: 5px;
+      }
     }
   </style>
 </head>
