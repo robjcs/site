@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
@@ -7,139 +8,81 @@
   <!-- p5.js -->
   <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
   <script>
-    let shapes = [];
-    let palette = [];
-    let timeOffset = 0;
-    let canvas;
+    // Gruvbox themed, simplified fork of Communications by Roni Kaufman
+
+
+    let n, s;
+    // Gruvbox palette
+    let fill_colors = [
+      "#fb4934", // red
+      "#b8bb26", // green
+      "#83a598", // blue
+      "#fabd2f", // yellow
+      "#d3869b", // purple
+      "#8ec07c"  // aqua
+    ];
+    let stroke_colors = ["#ebdbb2"]; // Gruvbox foreground
+    let background_color = "#282828"; // Gruvbox background
+    let margin = 50;
 
     function setup() {
-      // Create the canvas inside the canvas-container div
-      canvas = createCanvas(800, 200);
-      canvas.parent('canvas-container');
-      
-      colorMode(HSB, 360, 100, 100);
-      generatePalette();
-      initShapes(60);
+      // Create canvas with the exact dimensions of the container
+      canvas = createCanvas(800, 250);
+      canvas.parent("canvas-container");
+      noLoop();
+      n = floor(random(9, 10));
+      s = (width - 2 * margin) / n;
+      strokeWeight(s / random([8, 10]));
     }
 
     function draw() {
-      fill(0, 15);
-      rect(0, 0, width, height);
-      
-      timeOffset += 0.005;
-      
-      shapes.forEach(shape => {
-        shape.update();
-        shape.display();
-      });
-      
-      
-      shapes = shapes.filter(shape => !shape.isOffscreen());
-    }
 
-    function initShapes(count) {
-      for (let i = 0; i < count; i++) {
-        shapes.push(createRandomShape());
+      background(background_color);
+
+      if (random() < 1 / 3) {
+        fill_colors = [random(fill_colors)];
+      }
+
+      if (random() < 1 / 2) {
+        make_dots();
+        make_lines();
+      } else {
+        [fill_colors, stroke_colors] = [stroke_colors, fill_colors];
+        make_lines();
+        make_dots();
       }
     }
 
-    function createRandomShape() {
-      return {
-        x: random(width),
-        y: random(height),
-        size: random(40, 180),
-        color: palette[floor(random(palette.length))],
-        velX: random(-0.3, 0.3),
-        velY: random(-0.2, 0.2),
-        rotation: random(TWO_PI),
-        rotSpeed: random(-0.005, 0.005),
-        type: floor(random(5)),
-        noiseOffsetX: random(1000),
-        noiseOffsetY: random(1000),
-        
-        update() {
-          this.rotation += this.rotSpeed;
-          
-          // Use Perlin noise for smoother motion
-          let noiseX = noise(this.noiseOffsetX, timeOffset);
-          let noiseY = noise(this.noiseOffsetY, timeOffset);
-          
-          this.velX = map(noiseX, 0, 1, -0.3, 0.3);
-          this.velY = map(noiseY, 0, 1, -0.2, 0.2);
-          
-          this.x += this.velX;
-          this.y += this.velY;
-          
-          this.noiseOffsetX += 0.003;
-          this.noiseOffsetY += 0.003;
-        },
-        
-        display() {
-          push();
-          translate(this.x, this.y);
-          rotate(this.rotation);
-          fill(this.color);
-          noStroke();
-          
-          switch (this.type) {
-            case 0:
-              beginShape();
-              for (let i = 0; i < 6; i++) {
-                let angle = map(i, 0, 6, 0, TWO_PI);
-                let r = this.size * 0.5;
-                vertex(cos(angle) * r, sin(angle) * r);
-              }
-              endShape(CLOSE);
-              break;
-            case 1:
-              triangle(0, -this.size/2, this.size/2, this.size/2, -this.size/2, this.size/2);
-              break;
-            case 2:
-              rect(-this.size/2, -this.size/2, this.size, this.size);
-              break;
-            case 3:
-              ellipse(0, 0, this.size, this.size);
-              break;
-            case 4:
-              beginShape();
-              for (let i = 0; i < 5; i++) {
-                let angle = TWO_PI * i / 5;
-                let r = this.size * 0.5;
-                vertex(cos(angle) * r, sin(angle) * r);
-              }
-              endShape(CLOSE);
-              break;
-          }
-          pop();
-        },
-        
-        isOffscreen() {
-          let buffer = this.size;
-          return (this.x < -buffer || this.x > width + buffer || 
-                  this.y < -buffer || this.y > height + buffer);
+    function make_dots() {
+      noStroke();
+      for (let i = 0; i <= n; i++) {
+        let x = margin + i * s;
+        for (let j = 0; j <= floor(n * (height / width)); j++) {
+          let y = margin + j * s;
+          fill(random(fill_colors));
+          circle(x, y, s / 3);
         }
-      };
+      }
     }
 
-    function generatePalette() {
-      let baseHue = random(360);
-      palette = [
-        color(baseHue, 90, 95),
-        color((baseHue + 180) % 360, 85, 95),
-        color((baseHue + 30) % 360, 95, 95),
-        color((baseHue + 150) % 360, 80, 90),
-        color(random(360), 90, 95),
-        color(0, 0, 0),
-        color(0, 0, 95),
-        color((baseHue + 60) % 360, 85, 90),
-        color((baseHue + 220) % 360, 90, 85)
-      ];
-    }
-
-    function mousePressed() {
-      generatePalette();
-      shapes = [];
-      initShapes(60);
+    function make_lines() {
+      noFill();
+      for (let i = 0; i < n; i++) {
+        let x = margin + i * s;
+        for (let j = 0; j < floor(n * (height / width)); j++) {
+          let y = margin + j * s;
+          stroke(random(stroke_colors));
+          let r = random(2);
+          push();
+          translate(x + s / 2, y + s / 2);
+          rotate(random([0, PI / 2, PI, 3 * PI / 2]));
+          if (r < 1)
+            arc(-s / 2, -s / 2, 2 * s, 2 * s, 0, PI / 2);
+          else if (r < 2)
+            arc(0, -s / 2, s, s, 0, PI);
+          pop();
+        }
+      }
     }
   </script>
   <style>
@@ -151,9 +94,11 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: #fff;
-      color: #000;
+      font-family: Monaco, Menlo, "Courier New", monospace;
+      background-color: #282828;
+      /* Gruvbox dark background */
+      color: #ebdbb2;
+      /* Gruvbox light text */
       line-height: 1.5;
     }
 
@@ -161,37 +106,40 @@
       width: 90%;
       max-width: 800px;
       margin: 0 auto;
-      padding: 40px 0;
+      padding: 30px 0;
     }
-    
+
     /* Canvas container styles */
     #canvas-container {
       width: 800px;
-      height: 200px;
+      height: 250px;
       margin: 0 auto;
       display: block;
       position: relative;
       z-index: 100;
-      background-color: #f9f9f9;
+      background-color: #282828;
+      /* Gruvbox darker background for contrast */
+      border-radius: 5px;
     }
-    
+
     /* Make sure canvas stays inside container */
     #canvas-container canvas {
       display: block;
       margin: 0 auto;
     }
-    
+
     /* my blurb */
     .personal-blurb {
       text-align: left;
       margin: 20px 0;
       font-size: 0.95rem;
-      color: #555;
+      color: #a89984;
+      /* Gruvbox muted */
       padding: 0 0px;
     }
 
     .hero {
-      margin-bottom: 60px;
+      margin-bottom: 15px;
     }
 
     .hero h1 {
@@ -199,6 +147,8 @@
       font-weight: 700;
       margin-bottom: 20px;
       line-height: 1.2;
+      color: #fb4934;
+      /* Gruvbox red */
     }
 
     .hero p {
@@ -212,48 +162,64 @@
 
     .links a {
       text-decoration: none;
-      color: #555;
+      color: #b8bb26;
+      /* Gruvbox green */
       margin-right: 15px;
       font-weight: 500;
       cursor: pointer;
+      transition: color 0.2s ease;
     }
 
     .links a:hover {
-      color: #000;
+      color: #8ec07c;
+      /* Gruvbox light green */
+      text-decoration: underline;
     }
 
     .industry h2 {
       font-size: 1.6rem;
+      margin-top: 20px;
       margin-bottom: 20px;
       font-weight: 700;
+      color: #83a598;
+      /* Gruvbox blue */
     }
 
     .industry-item {
       margin-bottom: 40px;
+      border-left: 2px solid #504945;
+      /* Gruvbox muted border */
+      padding-left: 15px;
     }
 
     .industry-item h3 {
       font-size: 1.2rem;
       font-weight: 600;
       margin-bottom: 5px;
+      color: #fabd2f;
+      /* Gruvbox yellow */
     }
 
     .industry-item .dates {
       font-size: 0.95rem;
-      color: #888;
+      color: #665c54;
+      /* Gruvbox darker text */
       margin-bottom: 10px;
     }
 
     .industry-item .role {
       font-weight: 500;
       margin-bottom: 10px;
+      color: #d3869b;
+      /* Gruvbox purple */
     }
 
     .industry-item p {
-      margin-bottom: 6px;
+      margin-bottom: 20px;
       font-size: 0.95rem;
       line-height: 1.4;
-      color: #444;
+      color: #bdae93;
+      /* Gruvbox light text */
     }
 
     .fade-up {
@@ -267,34 +233,52 @@
       opacity: 1;
       transform: translateY(0);
     }
-    
+
     /* Content sections */
-    #main-content, #resume-content {
+    #main-content,
+    #resume-content {
       transition: opacity 0.5s ease;
     }
-    
+
     #resume-content {
       display: none;
     }
-    
+
     /* Back button for resume */
     .back-button {
       display: inline-block;
       margin-bottom: 20px;
       padding: 5px 15px;
-      background-color: #f0f0f0;
+      background-color: #3c3836;
+      /* Gruvbox slightly lighter background */
       border-radius: 4px;
       cursor: pointer;
       font-size: 0.9rem;
-      color: #555;
+      color: #a89984;
+      transition: all 0.2s ease;
     }
-    
+
     .back-button:hover {
-      background-color: #e0e0e0;
-      color: #000;
+      background-color: #504945;
+      color: #ebdbb2;
+    }
+
+    /* Add some gruvbox-themed borders and accents */
+    .hero,
+    .industry {
+      border-bottom: 1px solid #504945;
+      padding-bottom: 20px;
+    }
+
+    .subheading h4 {
+      color: #d79921;
+      /* Gruvbox dark yellow */
+      margin-bottom: 10px;
+      font-size: 1.1rem;
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <section class="hero fade-up">
@@ -308,7 +292,7 @@
         <a href="mailto:vendor_afraid_0g@icloud.com">Mail</a>
       </div>
     </section>
-    
+
     <!-- Canvas container below header -->
     <div id="canvas-container"></div>
     <p class="personal-blurb">Software Engineer at  interested in security and math.</p>
@@ -316,57 +300,64 @@
     <!-- Main content (shown by default) -->
     <div id="main-content">
     </div>
-    
+
     <!-- Resume content (hidden by default) -->
     <div id="resume-content">
       <div class="back-button" id="back-button">← Back to Home</div>
-      
+
       <section class="industry fade-up">
         <h2>Experience</h2>
-    
+
         <div class="industry-item">
           <h3>Apple</h3>
           <div class="dates">2025 &nbsp; feb -</div>
           <div class="role">Security Engineer, Red Team</div>
-          <p>Penetration testing apple.com online store services for PII and PCI data. Expertise in Linux, networking, and reverse engineering with tools like Ghidra and Eclipse MAT. Developing custom tooling in Java and Python.</p>
-    
+          <p>Penetration testing apple.com online store services for PII and PCI data. Expertise in Linux, networking,
+            and reverse engineering with tools like Ghidra and Eclipse MAT. Developing custom tooling in Java and
+            Python.</p>
+
           <div class="dates">2022 &nbsp; jul - 2025 feb</div>
           <div class="role">Software Development Engineer</div>
-          <p>Developed big-data apps for demand prediction and supply planning using Python, Go, AWS, Spark, and Gurobi. Expertise in high speed API/gRPC development. Led Kubernetes microservices and DB modernization projects.</p>
+          <p>Developed big-data apps for demand prediction and supply planning using Python, Go, AWS, Spark, and Gurobi.
+            Expertise in high speed API/gRPC development. Led Kubernetes microservices and DB modernization projects.
+          </p>
         </div>
-    
+
         <div class="industry-item">
           <h3>Merck & Co.</h3>
           <div class="dates">2020 - 2022</div>
           <div class="role">Global Security Intern / Software Engineering Intern</div>
-          <p>Developed DLP tools in Python for trade secret protection. Worked on AWS deployments, Splunk dashboards, and insider threat triage.</p>
+          <p>Developed DLP tools in Python for trade secret protection. Worked on AWS deployments, Splunk dashboards,
+            and insider threat triage.</p>
         </div>
       </section>
-      
+
       <section class="industry fade-up">
         <h2>Education</h2>
-    
+
         <div class="industry-item">
           <h3>University of Texas at Austin</h3>
           <div class="dates">2018 - 2022</div>
           <div class="role">Bachelors of Science in Mathematics</div>
           <p><i>Focus in statistics and computer science</i></p>
-    
+
           <div class="subheading">
             <h4>Research Positions</h4>
-    
+
             <div class="industry-item" style="margin-left: 20px;">
               <div class="dates">Finance Research Assistant, McCombs School of Business</div>
-              <p>Forensic finance research on market manipulation and PPP loan fraud. Built web-scraping tools for financial datasets using Python.</p>
+              <p>Forensic finance research on market manipulation and PPP loan fraud. Built web-scraping tools for
+                financial datasets using Python.</p>
               <div class="dates">Mathematics Directed Reading Program</div>
-              <p>Simulated heat flow via Monte Carlo methods. Studied BSDEs and financial math modeling under PhD advisors.</p>
+              <p>Simulated heat flow via Monte Carlo methods. Studied BSDEs and financial math modeling under PhD
+                advisors.</p>
               <div class="dates">Research Assistant, Texas Materials Institute</div>
               <p>Worked on semiconductor CVD growth methods.</p>
             </div>
           </div>
         </div>
       </section>
-    </div>       
+    </div>
   </div>
 
   <script>
@@ -386,23 +377,24 @@
     fadeUps.forEach(el => {
       observer.observe(el);
     });
-    
+
     // Resume tab functionality
-    document.getElementById('resume-link').addEventListener('click', function() {
+    document.getElementById('resume-link').addEventListener('click', function () {
       document.getElementById('main-content').style.display = 'none';
       document.getElementById('resume-content').style.display = 'block';
-      
+
       // Trigger fade-in for resume content
       const resumeFadeUps = document.querySelectorAll('#resume-content .fade-up');
       resumeFadeUps.forEach(el => {
         el.classList.add('show');
       });
     });
-    
-    document.getElementById('back-button').addEventListener('click', function() {
+
+    document.getElementById('back-button').addEventListener('click', function () {
       document.getElementById('resume-content').style.display = 'none';
       document.getElementById('main-content').style.display = 'block';
     });
   </script>
 </body>
+
 </html>
