@@ -2,97 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <title>Rob</title>
-  <!-- p5.js -->
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
-  <script>
-    // Gruvbox themed, simplified fork of Communications by Roni Kaufman
-
-
-    let n, s;
-    // Gruvbox palette
-    let fill_colors = [
-      "#fb4934", // red
-      "#b8bb26", // green
-      "#83a598", // blue
-      "#fabd2f", // yellow
-      "#d3869b", // purple
-      "#8ec07c"  // aqua
-    ];
-    let stroke_colors = ["#ebdbb2"]; // Gruvbox foreground
-    let background_color = "#282828"; // Gruvbox background
-    let margin = 50;
-
-    function setup() {
-      // Create a responsive canvas
-      let canvasWidth = min(800, windowWidth * 0.95);
-      let canvasHeight = canvasWidth * (250 / 800); // maintain aspect ratio
-
-      canvas = createCanvas(canvasWidth, canvasHeight);
-      canvas.parent("canvas-container");
-      noLoop();
-
-      // Adjust grid parameters based on canvas size
-      n = floor(random(9, 10));
-      s = (width - 2 * margin) / n;
-      strokeWeight(s / random([8, 10]));
-    }
-
-    function mousePressed() {
-      if (mouseX >= 0 && mouseX < width && mouseY >= 0 && mouseY < height) {
-        redraw()
-      }
-    }
-
-    function draw() {
-
-      background(background_color);
-
-      if (random() < 1 / 2) {
-        make_dots();
-        make_lines();
-      } else {
-        [fill_colors, stroke_colors] = [stroke_colors, fill_colors];
-        make_lines();
-        make_dots();
-      }
-    }
-
-    function make_dots() {
-      noStroke();
-      for (let i = 0; i <= n; i++) {
-        let x = margin + i * s;
-        for (let j = 0; j <= floor(n * (height / width)); j++) {
-          let y = margin + j * s;
-          fill(random(fill_colors));
-          circle(x, y, s / 3);
-        }
-      }
-    }
-
-    function make_lines() {
-      noFill();
-      for (let i = 0; i < n; i++) {
-        let x = margin + i * s;
-        for (let j = 0; j < floor(n * (height / width)); j++) {
-          let y = margin + j * s;
-          stroke(random(stroke_colors));
-          let r = random(2);
-          push();
-          translate(x + s / 2, y + s / 2);
-          rotate(random([0, PI / 2, PI, 3 * PI / 2]));
-          if (r < 1)
-            arc(-s / 2, -s / 2, 2 * s, 2 * s, 0, PI / 2);
-          else if (r < 2)
-            arc(0, -s / 2, s, s, 0, PI);
-          pop();
-        }
-      }
-    }
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <title>Robert Steve</title>
   <style>
     * {
       margin: 0;
@@ -101,368 +14,426 @@
     }
 
     body {
-      font-family: Monaco, Menlo, "Courier New", monospace;
-      background-color: #282828;
-      /* Gruvbox dark background */
-      color: #ebdbb2;
-      /* Gruvbox light text */
-      line-height: 1.5;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 10pt;
+      background-color: #ffffff;
+      color: #000000;
+      line-height: 1.4;
+      margin: 0;
+      padding: 0;
     }
 
-    .container {
-      width: 90%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 30px 0;
+    /* Main wrapper - creates the centered pane effect */
+    .main-wrapper {
+      max-width: 1000px;
+      margin: 20px auto;
+      background-color: #f6f6ef;
     }
 
-    #canvas-container {
-      width: 800px;
-      height: 250px;
-      margin: 0 auto;
-      display: block;
-      position: relative;
-      z-index: 100;
-      background-color: #282828;
-      border-radius: 5px;
+    /* Header - HN style */
+    .header {
+      background-color: #9e1515;
+      padding: 2px;
+      font-size: 10pt;
     }
 
-    #canvas-container canvas {
-      display: block;
-      margin: 0 auto;
+    .header-content {
+      padding: 4px 8px;
     }
 
-    /* my blurb */
-    .personal-blurb {
-      text-align: left;
-      margin: 20px 0;
-      font-size: 0.95rem;
-      color: #a89984;
-      padding: 0 0px;
-    }
-
-    .hero {
-      margin-bottom: 15px;
-    }
-
-    .hero h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      line-height: 1.2;
-      color: #fb4934;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
-
-    .links {
-      margin-top: 20px;
-    }
-
-    .links a {
+    .header a {
+      color: #ffffff;
       text-decoration: none;
-      color: #b8bb26;
-      margin-right: 15px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: color 0.2s ease;
+      margin-right: 10px;
     }
 
-    .links a:hover {
-      color: #8ec07c;
+    .header a:hover {
       text-decoration: underline;
     }
 
-    .industry h2 {
-      font-size: 1.6rem;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      font-weight: 700;
-      color: #83a598;
+    .header .title {
+      font-weight: bold;
+      margin-right: 10px;
     }
 
-    .industry-item {
-      margin-bottom: 40px;
-      border-left: 2px solid #504945;
-      padding-left: 15px;
+    .header .separator {
+      color: #ffffff;
+      margin: 0 5px;
     }
 
-    .industry-item h3 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: #fabd2f;
+    /* Main content */
+    .container {
+      padding: 8px;
+      background-color: #f6f6ef;
     }
 
-    .industry-item .dates {
-      font-size: 0.95rem;
-      color: #665c54;
-      /* Gruvbox darker text */
-      margin-bottom: 10px;
-    }
-
-    .industry-item .role {
-      font-weight: 500;
-      margin-bottom: 10px;
-      color: #d3869b;
-      /* Gruvbox purple */
-    }
-
-    .industry-item p {
-      margin-bottom: 20px;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      color: #bdae93;
-      /* Gruvbox light text */
-    }
-
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      will-change: opacity, transform;
-    }
-
-    .fade-up.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Content sections */
-    #main-content,
-    #resume-content {
-      transition: opacity 0.5s ease;
-    }
-
-    #resume-content {
+    .content-section {
       display: none;
+      padding: 10px 0;
     }
 
-    /* Back button for resume */
-    .back-button {
-      display: inline-block;
+    .content-section.active {
+      display: block;
+    }
+
+    /* Home content */
+    .home-content {
+      padding: 20px 0;
+      font-size: 11pt;
+    }
+
+    .home-image-container {
+      margin: 0 150px 20px 150px;
+    }
+
+    .home-image {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      aspect-ratio: 1000 / 400;
+      border: 1px solid #e0e0e0;
+      object-fit: cover;
+      display: block;
+    }
+
+    .home-subtitle {
+      font-size: 9pt;
+      color: #666;
+      font-style: italic;
+      text-align: right;
+      margin-top: 5px;
+      max-width: 700px;
+    }
+
+    .home-intro-box {
+      margin: 20px 150px;
+      padding: 15px;
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 3px;
+      font-size: 11pt;
+      line-height: 1.5;
+    }
+
+    /* Projects content */
+    .projects-content {
+      padding: 20px 0;
+      font-size: 11pt;
+      color: #666;
+    }
+
+    /* Resume content - HN list style */
+    .resume-section {
+      margin-bottom: 30px;
+    }
+
+    .resume-section h2 {
+      font-size: 13pt;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #000000;
+    }
+
+    .resume-item {
       margin-bottom: 20px;
-      padding: 5px 15px;
-      background-color: #3c3836;
-      /* Gruvbox slightly lighter background */
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      color: #a89984;
-      transition: all 0.2s ease;
+      padding-left: 20px;
+      position: relative;
     }
 
-    .back-button:hover {
-      background-color: #504945;
-      color: #ebdbb2;
+    .resume-item::before {
+      content: counter(item-counter) ".";
+      counter-increment: item-counter;
+      position: absolute;
+      left: 0;
+      font-weight: bold;
     }
 
-    .hero,
-    .industry {
-      border-bottom: 1px solid #504945;
-      padding-bottom: 20px;
+    .resume-section {
+      counter-reset: item-counter;
     }
 
-    .subheading h4 {
-      color: #d79921;
-      /* Gruvbox dark yellow */
+    .resume-item h3 {
+      font-size: 11pt;
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+
+    .resume-item .dates {
+      font-size: 9pt;
+      color: #666;
+      margin-bottom: 2px;
+    }
+
+    .resume-item .role {
+      font-size: 10pt;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #000;
+    }
+
+    .resume-item p {
+      font-size: 10pt;
       margin-bottom: 10px;
-      font-size: 1.1rem;
+      line-height: 1.3;
     }
 
-    @media (max-width: 850px) {
-
-      /* Adjust container width for smaller screens */
-      .container {
-        width: 95%;
-        padding: 20px 0;
-      }
-
-      /* Make the canvas container responsive */
-      #canvas-container {
-        width: 100%;
-        height: auto;
-        max-height: 200px;
-        overflow: hidden;
-      }
-
-      /* Adjust font sizes */
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-
-      .links a {
-        font-size: 1.5rem;
-        text-align: center;
-      }
+    .resume-item .subheading {
+      margin-top: 10px;
+      margin-left: 20px;
     }
 
+    .resume-item .subheading h4 {
+      font-size: 10pt;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .resume-item .sub-item {
+      margin-bottom: 10px;
+      font-size: 10pt;
+    }
+
+    .resume-item .sub-item .dates {
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+
+    /* Socials content */
+    .socials-content {
+      padding: 20px 0;
+    }
+
+    .socials-content ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .socials-content li {
+      margin-bottom: 8px;
+      font-size: 11pt;
+    }
+
+    .socials-content a {
+      color: #000000;
+      text-decoration: none;
+    }
+
+    .socials-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile responsive */
     @media (max-width: 600px) {
-
-      /* adjustments for mobile */
-      .hero h1 {
-        font-size: 1.8rem;
-        margin-bottom: 15px;
+      .main-wrapper {
+        margin: 10px;
+        max-width: none;
       }
 
-      .industry-item {
-        padding-left: 10px;
+      .header-content {
+        padding: 4px;
       }
 
-      .industry h2 {
-        font-size: 1.7rem;
+      .header a {
+        margin-right: 8px;
+        font-size: 9pt;
       }
 
-      .industry-item h3 {
-        font-size: 1.2rem;
+      .container {
+        padding: 4px;
       }
 
-      .industry-item p,
-      .personal-blurb {
-        font-size: 1.2rem;
-      }
-
-      .industry-item p,
-      .role {
-        font-size: 1.3rem;
-      }
-
-      .industry-item .dates {
-        font-size: 1.2rem;
-      }
-
-      /* vertical links */
-      .links {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .links a {
-        display: inline-block;
-        margin-bottom: 0px;
+      .resume-item {
+        padding-left: 15px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <section class="hero fade-up">
-      <h1>Robert Steve</h1>
-      <p></p>
-
-      <div class="links">
-        <a id="resume-link">Resume</a>
-        <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/robertjsteve">LinkedIn</a>
-        <a target="_blank" rel="noopener noreferrer" href="https://github.com/robjcs">GitHub</a>
-        <a href="mailto:vendor_afraid_0g@icloud.com">Mail</a>
+  <!-- Main wrapper for centered pane effect -->
+  <div class="main-wrapper">
+    <!-- HN-style header -->
+    <div class="header">
+      <div class="header-content">
+        <a href="#" class="title" onclick="showSection('home')">Robert Steve</a>
+        <span class="separator">|</span>
+        <a href="#" onclick="showSection('projects')">projects</a>
+        <span class="separator">|</span>
+        <a href="#" onclick="showSection('writing')">writing</a>
+        <span class="separator">|</span>
+        <a href="#" onclick="showSection('resume')">resume</a>
+        <span class="separator">|</span>
+        <a href="#" onclick="showSection('socials')">socials</a>
       </div>
-    </section>
-
-    <!-- Canvas container below header -->
-    <div id="canvas-container"></div>
-    <p class="personal-blurb">Software Engineer at  interested in security and math.</p>
-
-    <!-- Main content (shown by default) -->
-    <div id="main-content">
     </div>
 
-    <!-- Resume content (hidden by default) -->
-    <div id="resume-content">
-      <div class="back-button" id="back-button">← Back to Home</div>
+    <!-- Main container -->
+    <div class="container">
+      <!-- Home section -->
+      <div id="home" class="content-section active">
+        <div class="home-content">
+          <div class="home-image-container">
+            <img src="lorenz.png" alt="Lorenz Attractor" class="home-image">
+            <div class="home-subtitle">
+              generative art and a<a href="https://en.wikipedia.org/wiki/Lorenz_system"> Lorenz attractor</a>, generated
+              in <a href="https://processing.org">Processing</a>.
+            </div>
+          </div>
+          <div class="home-intro-box">
+            I am a Software Engineer currently based in Texas.
+            <br><br>
+            I'm interested in math, radio, markets, and geopolitics.
+            Currently learning about FPGA. In my free
+            time: sailing, reading, music, travel.
+            <br><br>
+            Currently Reading: <a
+              href="https://en.wikipedia.org/wiki/The_Prize:_The_Epic_Quest_for_Oil,_Money,_and_Power"><i>The
+                Prize</i></a> by Daniel Yergin.
+          </div>
+        </div>
+      </div>
 
-      <section class="industry fade-up">
-        <h2>Experience</h2>
+      <!-- Writing section -->
+      <div id="writing" class="content-section">
+        <div class="home-content">
+          <div class="home-image-container">
+            <img src="landscape.png" alt="Landscape" class="home-image">
+            <div class="home-subtitle">
+              Inside the Arctic Circle, Norway.
+            </div>
+          </div>
+          <div class="projects-content">
+            Writing coming soon...
+          </div>
+        </div>
+      </div>
 
-        <div class="industry-item">
-          <h3>Apple</h3>
-          <div class="dates">2025 &nbsp; feb -</div>
-          <div class="role">Security Engineer, Red Team</div>
-          <p>Penetration testing apple.com online store services for PII and PCI data. Expertise in Linux, networking,
-            and reverse engineering with tools like Ghidra and Eclipse MAT. Developing custom tooling in Java and
-            Python.</p>
+      <!-- Projects section -->
+      <div id="projects" class="content-section">
+        <div class="resume-section">
+          <h2>Recent Projects</h2>
 
-          <div class="dates">2022 &nbsp; jul - 2025 feb</div>
-          <div class="role">Software Development Engineer</div>
-          <p>Developed big-data apps for demand prediction and supply planning using Python, Go, AWS, Spark, and Gurobi.
-            Expertise in high speed API/gRPC development. Led Kubernetes microservices and DB modernization projects.
-          </p>
+          <div class="resume-item">
+            <h3>Amateur Radio & RF Engineering <span style="color: #666; font-weight: normal;">KD2NVR</span></h3>
+            <div class="dates">2020 -</div>
+            <div class="role">Extra Class Operator</div>
+            <p>Licensed as an Extra Class operator. Pursued a range of projects in radio, including working with
+              software-defined radios (SDRs) such as the RTL-SDR, experimenting with long-distance HF transmissions via
+              ionospheric propagation (skywave), and designing custom antennas to receive real-time NOAA weather
+              satellite imagery.
+              Designed, built and successfully launched a high-altitude weather balloon to 67,500 feet,
+              equipped with
+              a custom-built GPS tracking system utilizing Arduino and APRS packet transmission in C/C++.</p>
+          </div>
+
+          <div class="resume-item">
+            <h3>Independent Software Engineering</h3>
+            <div class="dates">2022 -</div>
+            <div class="role">Custom Application Development</div>
+            <p>Designed and built custom software solutions in Python for small businesses and organizations. Developed
+              applications to streamline workflows, automate processes, and improve operational efficiency through
+              tailored software solutions.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resume section -->
+      <div id="resume" class="content-section">
+        <div class="resume-section">
+          <h2>Experience</h2>
+
+          <div class="resume-item">
+            <h3>Apple</h3>
+            <div class="dates">2024 sep -</div>
+            <div class="role">Software Development Engineer II</div>
+            <p>Building high-performance APIs and gRPC services using Python, Go, and Java. Subject matter expert on
+              OpenID Connect (OIDC) implementations. Leading development tracks for supply chain optimization efforts.
+            </p>
+          </div>
+
+          <div class="resume-item">
+            <h3>Apple</h3>
+            <div class="dates">2025 feb -</div>
+            <div class="role">Security Engineer, Red Team</div>
+            <p>Penetration tested apple.com online store services for PII and PCI data. Expertise in Linux, networking,
+              and reverse engineering with tools like Ghidra and Eclipse MAT. Developed boutique security tooling in
+              Java and Python.</p>
+          </div>
+
+          <div class="resume-item">
+            <h3>Apple</h3>
+            <div class="dates">2022 jul - 2025 feb</div>
+            <div class="role">Software Development Engineer</div>
+            <p>Developed big-data apps for demand prediction and supply planning using Python, Go, AWS, Spark, and
+              Gurobi.
+              Expertise in high speed API/gRPC development. Led Kubernetes microservices and DB modernization projects.
+            </p>
+          </div>
+
+          <div class="resume-item">
+            <h3>Merck & Co.</h3>
+            <div class="dates">2020 - 2022</div>
+            <div class="role">Global Security Intern / Software Engineering Intern</div>
+            <p>Developed DLP tools for trade secret protection. Built critical analysis tooling for Insider Risk
+              investigations, working closely with Federal partners.</p>
+          </div>
         </div>
 
-        <div class="industry-item">
-          <h3>Merck & Co.</h3>
-          <div class="dates">2020 - 2022</div>
-          <div class="role">Global Security Intern / Software Engineering Intern</div>
-          <p>Developed DLP tools in Python for trade secret protection. Worked on AWS deployments, Splunk dashboards,
-            and insider threat triage.</p>
-        </div>
-      </section>
+        <div class="resume-section">
+          <h2>Education</h2>
 
-      <section class="industry fade-up">
-        <h2>Education</h2>
+          <div class="resume-item">
+            <h3>University of Texas at Austin</h3>
+            <div class="dates">2018 - 2022</div>
+            <div class="role">Bachelors of Science in Mathematics</div>
+            <p><i>Focus in statistics and computer science</i></p>
 
-        <div class="industry-item">
-          <h3>University of Texas at Austin</h3>
-          <div class="dates">2018 - 2022</div>
-          <div class="role">Bachelors of Science in Mathematics</div>
-          <p><i>Focus in statistics and computer science</i></p>
-
-          <div class="subheading">
-            <h4>Research Positions</h4>
-
-            <div class="industry-item" style="margin-left: 20px;">
-              <div class="dates">Finance Research Assistant, McCombs School of Business</div>
-              <p>Forensic finance research on market manipulation and PPP loan fraud. Built web-scraping tools for
-                financial datasets using Python.</p>
-              <div class="dates">Mathematics Directed Reading Program</div>
-              <p>Simulated heat flow via Monte Carlo methods. Studied BSDEs and financial math modeling under PhD
-                advisors.</p>
-              <div class="dates">Research Assistant, Texas Materials Institute</div>
-              <p>Worked on semiconductor CVD growth methods.</p>
+            <div class="subheading">
+              <h4>Research Positions</h4>
+              <div class="sub-item">
+                <div class="dates">Finance Research Assistant, McCombs School of Business</div>
+                <p>Forensic finance research on market manipulation and PPP loan fraud. Built web-scraping tools for
+                  financial datasets using Python.</p>
+              </div>
+              <div class="sub-item">
+                <div class="dates">Mathematics Directed Reading Program</div>
+                <p>Simulated heat flow via Monte Carlo methods. Studied BSDEs and financial math modeling under PhD
+                  advisors.</p>
+              </div>
+              <div class="sub-item">
+                <div class="dates">Research Assistant, Texas Materials Institute</div>
+                <p>Worked on semiconductor CVD growth methods.</p>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+
+      <!-- Socials section -->
+      <div id="socials" class="content-section">
+        <div class="socials-content">
+          <ul>
+            <li>• <a href="https://linkedin.com/in/robertjsteve" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </li>
+            <li>• <a href="https://github.com/robjcs" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li>• <a href="mailto:vendor_afraid_0g@icloud.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    // Animation for fade-up elements
-    const fadeUps = document.querySelectorAll('.fade-up');
-    const observerOptions = {
-      threshold: 0.1
-    };
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-          obs.unobserve(entry.target);
-        }
+    function showSection(sectionId) {
+      // Hide all sections
+      const sections = document.querySelectorAll('.content-section');
+      sections.forEach(section => {
+        section.classList.remove('active');
       });
-    }, observerOptions);
-    fadeUps.forEach(el => {
-      observer.observe(el);
-    });
 
-    // Resume tab functionality
-    document.getElementById('resume-link').addEventListener('click', function () {
-      document.getElementById('main-content').style.display = 'none';
-      document.getElementById('resume-content').style.display = 'block';
-
-      // Trigger fade-in for resume content
-      const resumeFadeUps = document.querySelectorAll('#resume-content .fade-up');
-      resumeFadeUps.forEach(el => {
-        el.classList.add('show');
-      });
-    });
-
-    document.getElementById('back-button').addEventListener('click', function () {
-      document.getElementById('resume-content').style.display = 'none';
-      document.getElementById('main-content').style.display = 'block';
-    });
+      // Show selected section
+      document.getElementById(sectionId).classList.add('active');
+    }
   </script>
 </body>
 
