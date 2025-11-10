@@ -31,7 +31,7 @@ Lichess has a very powerful and well-documented [API](https://lichess.org/api).
 For this project I focused on accomplishing these goals with the API:
 - Start a game (`/api/challenge/{challenge_id}/accept`)
 - Wait for opponent's (challenger's) moves (`/api/bot/game/stream/{game_id}`)
-- Read a position (`Board().fen()`)
+- Read a position (`/api/bot/game/stream/{game_id}`+`Board().fen()`)
 - Execute a move (`/api/bot/game/{game_id}/move/{move_uci}`)
 - Send a Chat message (`POST /api/bot/game/{game_id}/chat`)
 
@@ -59,13 +59,15 @@ And then to use them to get the best move,
 engine.set_fen_position(fen)
 best_move = engine.get_best_move()
 ```
-I think, with newer engines becoming available that play more like humans (or, in more interesting ways at least, like [lc0 (Leela)](https://lczero.org), there is some room here to use different engines and to have more of a "coaching" experience with this bot.
+I think, with newer engines becoming available that play more like humans (or, in more interesting ways at least, like [lc0 (Leela)](https://lczero.org)), there is some room here to use different engines and to have more of a "coaching" experience with this bot.
 
 ## Ollama (Bonus)
 
 To make the bot feel a little more alive during games, and not just some Stockfish out-of-the-water, I added a class that listens for Chat events, and responds to messages (with some personality 😄).
 
-In the `stream` API, I could listen for `event_type == 'chatLine'`. I was able to use these events, and the `text` object attached to them, as LLM input. 
+In the `stream` API, I could listen for `event_type == 'chatLine'`. I was able to use these events, and the `text` object attached to them, as LLM input.
+
+I am running `gemma3` with ollama on the bot host machine.
 
 ![chat screenshot](/writing/images/chessbot-noise.png)
 ![chat screenshot](/writing/images/chessbot-stalling.png)
