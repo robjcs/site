@@ -115,6 +115,205 @@
       line-height: 1.5;
     }
 
+    /* Writing list styles */
+    .writing-list {
+      margin: 20px 150px;
+    }
+
+    .article-link {
+      display: block;
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 3px;
+      text-decoration: none;
+      color: #000000;
+      transition: background-color 0.2s;
+    }
+
+    .article-link:hover {
+      background-color: #f0f0f0;
+    }
+
+    .article-title {
+      font-size: 11pt;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .article-date {
+      font-size: 9pt;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .article-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .article-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      background-color: #f6f6ef;
+      border: 1px solid #e0e0e0;
+      border-radius: 3px;
+      font-size: 8pt;
+      color: #666;
+    }
+
+    .tag-filter {
+      margin: 20px 150px 0 150px;
+      padding: 12px 15px;
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 3px;
+    }
+
+    .tag-filter-label {
+      font-size: 10pt;
+      color: #666;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .tag-filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-button {
+      padding: 4px 10px;
+      background-color: #f6f6ef;
+      border: 1px solid #e0e0e0;
+      border-radius: 3px;
+      font-size: 9pt;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: Verdana, Geneva, sans-serif;
+    }
+
+    .tag-button:hover {
+      background-color: #e8e8e8;
+    }
+
+    .tag-button.active {
+      background-color: #9e1515;
+      color: #ffffff;
+      border-color: #9e1515;
+    }
+
+    /* Article content styles */
+    .article-content {
+      margin: 20px 150px;
+      padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 3px;
+      font-size: 11pt;
+      line-height: 1.6;
+    }
+
+    .article-content h1 {
+      font-size: 16pt;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #000000;
+    }
+
+    .article-content h2 {
+      font-size: 13pt;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: #000000;
+    }
+
+    .article-content h3 {
+      font-size: 11pt;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: #000000;
+    }
+
+    .article-content p {
+      margin-bottom: 12px;
+      font-size: 11pt;
+    }
+
+    .article-content a {
+      color: #000000;
+      text-decoration: underline;
+    }
+
+    .article-content a:hover {
+      color: #9e1515;
+    }
+
+    .article-content ul, .article-content ol {
+      margin-left: 25px;
+      margin-bottom: 12px;
+    }
+
+    .article-content li {
+      margin-bottom: 5px;
+    }
+
+    .article-content code {
+      background-color: #f6f6ef;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 9pt;
+    }
+
+    .article-content pre {
+      background-color: #f6f6ef;
+      padding: 12px;
+      border-radius: 3px;
+      overflow-x: auto;
+      margin-bottom: 12px;
+    }
+
+    .article-content pre code {
+      background-color: transparent;
+      padding: 0;
+    }
+
+    .article-content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 15px 0;
+      border: 1px solid #e0e0e0;
+    }
+
+    .article-content blockquote {
+      border-left: 3px solid #9e1515;
+      padding-left: 15px;
+      margin: 15px 0;
+      color: #666;
+      font-style: italic;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 15px;
+      color: #9e1515;
+      text-decoration: none;
+      font-size: 10pt;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
     /* Projects content */
     .projects-content {
       padding: 20px 0;
@@ -246,7 +445,6 @@
         padding-left: 15px;
       }
 
-      /* Mobile image container adjustments */
       .home-image-container {
         margin: 0 20px 20px 20px !important;
       }
@@ -265,6 +463,19 @@
       .home-content {
         padding: 15px 0 !important;
       }
+
+      .writing-list {
+        margin: 20px 20px !important;
+      }
+
+      .tag-filter {
+        margin: 20px 20px 0 20px !important;
+      }
+
+      .article-content {
+        margin: 20px 20px !important;
+        padding: 15px !important;
+      }
     }
 
     /* Tablet responsive */
@@ -274,6 +485,18 @@
       }
 
       .home-intro-box {
+        margin: 20px 50px;
+      }
+
+      .writing-list {
+        margin: 20px 50px;
+      }
+
+      .tag-filter {
+        margin: 20px 50px 0 50px;
+      }
+
+      .article-content {
         margin: 20px 50px;
       }
     }
@@ -286,16 +509,13 @@
     <!-- HN-style header -->
     <div class="header">
       <div class="header-content">
-        <a href="#" class="title" onclick="showSection('home')">Robert Steve</a>
+        <a href="#" class="title" onclick="navigate('home')">Robert Steve</a>
         <span class="separator">|</span>
-        <!-- <a href="#" onclick="showSection('projects')">projects</a>
+        <a href="#writing" onclick="navigate('writing')">writing / projects</a>
         <span class="separator">|</span>
-      -->
-        <a href="#" onclick="showSection('writing')">writing</a>
+        <a href="#resume" onclick="navigate('resume')">resume</a>
         <span class="separator">|</span>
-        <a href="#" onclick="showSection('resume')">resume</a>
-        <span class="separator">|</span>
-        <a href="#" onclick="showSection('contact')">contact</a>
+        <a href="#contact" onclick="navigate('contact')">contact</a>
       </div>
     </div>
 
@@ -328,14 +548,25 @@
       <!-- Writing section -->
       <div id="writing" class="content-section">
         <div class="home-content">
-          <div class="home-image-container">
-            <img src="landscape.png" alt="Landscape" class="home-image">
-            <div class="home-subtitle">
-              Inside the Arctic Circle, Norway.
+          <div id="writing-list-view">
+            <div class="home-image-container">
+              <img src="landscape.png" alt="Landscape" class="home-image">
+              <div class="home-subtitle">
+                Inside the Arctic Circle, Norway.
+              </div>
+            </div>
+            <div class="tag-filter" id="tag-filter" style="display: none;">
+              <span class="tag-filter-label">Filter by tag:</span>
+              <div class="tag-filter-buttons" id="tag-filter-buttons">
+                <!-- Tag filter buttons will be added here -->
+              </div>
+            </div>
+            <div class="writing-list" id="articles-list">
+              <!-- Articles will be loaded here -->
             </div>
           </div>
-          <div class="projects-content">
-            Writing coming soon...
+          <div id="article-view" style="display: none;">
+            <!-- Individual article content will be loaded here -->
           </div>
         </div>
       </div>
@@ -455,16 +686,220 @@
     </div>
   </div>
 
+  <!-- Marked.js for markdown parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js"></script>
+
   <script>
+    // Configuration: Add your article filenames here
+    const articles = [
+      { 
+        filename: 'hand-and-brain.md', 
+        title: 'Lichess Hand and Brain Bot', 
+        date: '2025-11-05',
+        tags: ['mini-project'],
+        slug: 'hand-and-brain'  // Used for URL
+      },
+      // Add more articles with slugs like:
+      // { filename: 'another-post.md', title: 'Another Post', date: '2024-11-05', tags: ['web'], slug: 'another-post' },
+    ];
+
+    let activeTag = null;
+
+    // Initialize marked options
+    marked.setOptions({
+      breaks: true,
+      gfm: true
+    });
+
+    // Handle initial page load and browser back/forward
+    window.addEventListener('load', handleRoute);
+    window.addEventListener('hashchange', handleRoute);
+
+    function handleRoute() {
+      const hash = window.location.hash.slice(1); // Remove the #
+      
+      if (!hash) {
+        showSection('home');
+        return;
+      }
+
+      // Check if it's a direct section link
+      const sections = ['home', 'writing', 'resume', 'contact'];
+      if (sections.includes(hash)) {
+        showSection(hash);
+        if (hash === 'writing') {
+          showArticleList();
+        }
+        return;
+      }
+
+      // Check if it's an article slug
+      const article = articles.find(a => a.slug === hash);
+      if (article) {
+        showSection('writing');
+        loadArticle(article.filename, false); // Don't update URL again
+        return;
+      }
+
+      // Default to home if hash doesn't match anything
+      showSection('home');
+    }
+
+    function navigate(section) {
+      event.preventDefault();
+      window.location.hash = section;
+    }
+
     function showSection(sectionId) {
-      // Hide all sections
       const sections = document.querySelectorAll('.content-section');
       sections.forEach(section => {
         section.classList.remove('active');
       });
 
-      // Show selected section
       document.getElementById(sectionId).classList.add('active');
+    }
+
+    function showArticleList() {
+      document.getElementById('writing-list-view').style.display = 'block';
+      document.getElementById('article-view').style.display = 'none';
+      activeTag = null;
+      
+      // Update URL to just #writing
+      if (window.location.hash !== '#writing') {
+        window.history.pushState(null, '', '#writing');
+      }
+      
+      loadTagFilter();
+      loadArticleList();
+    }
+
+    function loadTagFilter() {
+      // Get all unique tags
+      const allTags = new Set();
+      articles.forEach(article => {
+        if (article.tags) {
+          article.tags.forEach(tag => allTags.add(tag));
+        }
+      });
+
+      if (allTags.size === 0) {
+        document.getElementById('tag-filter').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('tag-filter').style.display = 'block';
+      const filterContainer = document.getElementById('tag-filter-buttons');
+      filterContainer.innerHTML = '';
+
+      // Add "All" button
+      const allButton = document.createElement('button');
+      allButton.className = 'tag-button active';
+      allButton.textContent = 'All';
+      allButton.onclick = () => filterByTag(null);
+      filterContainer.appendChild(allButton);
+
+      // Add tag buttons
+      Array.from(allTags).sort().forEach(tag => {
+        const button = document.createElement('button');
+        button.className = 'tag-button';
+        button.textContent = tag;
+        button.onclick = () => filterByTag(tag);
+        filterContainer.appendChild(button);
+      });
+    }
+
+    function filterByTag(tag) {
+      activeTag = tag;
+      
+      // Update button states
+      const buttons = document.querySelectorAll('.tag-button');
+      buttons.forEach(button => {
+        if ((tag === null && button.textContent === 'All') || 
+            (tag !== null && button.textContent === tag)) {
+          button.classList.add('active');
+        } else {
+          button.classList.remove('active');
+        }
+      });
+
+      loadArticleList();
+    }
+
+    function loadArticleList() {
+      const listContainer = document.getElementById('articles-list');
+      listContainer.innerHTML = '';
+
+      // Filter articles by active tag
+      let filteredArticles = articles;
+      if (activeTag !== null) {
+        filteredArticles = articles.filter(article => 
+          article.tags && article.tags.includes(activeTag)
+        );
+      }
+
+      // Sort articles by date (newest first)
+      const sortedArticles = [...filteredArticles].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      sortedArticles.forEach(article => {
+        const link = document.createElement('a');
+        link.href = `#${article.slug}`;
+        link.className = 'article-link';
+        link.onclick = (e) => {
+          e.preventDefault();
+          window.location.hash = article.slug;
+        };
+
+        const tagsHTML = article.tags 
+          ? `<div class="article-tags">${article.tags.map(tag => 
+              `<span class="article-tag">${tag}</span>`
+            ).join('')}</div>`
+          : '';
+
+        link.innerHTML = `
+          <div class="article-title">${article.title}</div>
+          <div class="article-date">${formatDate(article.date)}</div>
+          ${tagsHTML}
+        `;
+
+        listContainer.appendChild(link);
+      });
+    }
+
+    async function loadArticle(filename, updateUrl = true) {
+      try {
+        const response = await fetch(`writing/${filename}`);
+        if (!response.ok) throw new Error('Article not found');
+        
+        const markdown = await response.text();
+        const html = marked.parse(markdown);
+
+        document.getElementById('writing-list-view').style.display = 'none';
+        const articleView = document.getElementById('article-view');
+        articleView.style.display = 'block';
+        
+        articleView.innerHTML = `
+          <div class="article-content">
+            <a href="#writing" class="back-link" onclick="event.preventDefault(); showArticleList();">← Back to articles</a>
+            ${html}
+          </div>
+        `;
+
+        // Update URL if needed (when clicking from list)
+        if (updateUrl) {
+          const article = articles.find(a => a.filename === filename);
+          if (article) {
+            window.history.pushState(null, '', `#${article.slug}`);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading article:', error);
+        alert('Could not load article. Please check the console for details.');
+      }
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     }
   </script>
 </body>
