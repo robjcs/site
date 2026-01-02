@@ -1,5 +1,5 @@
 # Time Bugs
-I recently read a blog post by Arpit Bhayani [Clock Synchronization Is a Nightmare](https://arpitbhayani.me/blogs/clock-sync-nightmare/), which describes the computationally non-trivial problem of syncing clocks. I love this topic because it's typical of the class of problems, and solutions, that we take for granted in everyday engineering (and life!).
+I recently read a blog post [Clock Synchronization Is a Nightmare](https://arpitbhayani.me/blogs/clock-sync-nightmare/) by Arpit Bhayani, which describes the computationally non-trivial problem of syncing clocks. I love this topic because it's typical of the class of problems, and solutions, that we take for granted in everyday engineering (and life!).
 
 So we can discuss how we sync clocks between computers to some tolerance, but the bigger question is: How do we set the clock in the first place? How do we actually track the world's time?
 
