@@ -302,6 +302,20 @@
       font-style: italic;
     }
 
+    /* KaTeX math styling */
+    .katex-display {
+      margin: 1em 0;
+      text-align: center;
+    }
+
+    .katex {
+      font-size: 1.1em;
+    }
+
+    .article-content .katex-display {
+      margin: 20px 0;
+    }
+
     .back-link {
       display: inline-block;
       margin-bottom: 15px;
@@ -686,18 +700,30 @@
     </div>
   </div>
 
+  <!-- KaTeX for math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+
   <!-- Marked.js for markdown parsing -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js"></script>
 
   <script>
     // Configuration: Add your article filenames here
     const articles = [
-      { 
-        filename: 'hand-and-brain.md', 
-        title: 'Lichess Hand and Brain Bot', 
+      {
+        filename: 'hand-and-brain.md',
+        title: 'Lichess Hand and Brain Bot',
         date: '2025-11-05',
         tags: ['mini-project'],
         slug: 'hand-and-brain'  // Used for URL
+      },
+      {
+        filename: 'time-bugs.md',
+        title: 'Time Bugs',
+        date: '2025-12-29',
+        tags: ['writing'],
+        slug: 'time-bugs'  // Used for URL
       },
       // Add more articles with slugs like:
       // { filename: 'another-post.md', title: 'Another Post', date: '2024-11-05', tags: ['web'], slug: 'another-post' },
@@ -883,6 +909,29 @@
             ${html}
           </div>
         `;
+
+        // Render LaTeX math using KaTeX
+        if (typeof renderMathInElement !== 'undefined') {
+          renderMathInElement(articleView, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false,
+            macros: {
+              "\\RR": "\\mathbb{R}",
+              "\\CC": "\\mathbb{C}",
+              "\\NN": "\\mathbb{N}",
+              "\\ZZ": "\\mathbb{Z}",
+              "\\QQ": "\\mathbb{Q}"
+            },
+            strict: false,
+            trust: true,
+            fleqn: false
+          });
+        }
 
         // Update URL if needed (when clicking from list)
         if (updateUrl) {
