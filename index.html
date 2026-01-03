@@ -21,6 +21,133 @@
       line-height: 1.4;
       margin: 0;
       padding: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .main-wrapper {
+      background-color: #2d2d2d;
+    }
+
+    body.dark-mode .container {
+      background-color: #2d2d2d;
+    }
+
+    body.dark-mode .home-intro-box {
+      background-color: #3a3a3a;
+      border-color: #555;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .article-link {
+      background-color: #3a3a3a;
+      border-color: #555;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .article-link:hover {
+      background-color: #4a4a4a;
+    }
+
+    body.dark-mode .article-date {
+      color: #aaa;
+    }
+
+    body.dark-mode .article-tag {
+      background-color: #2d2d2d;
+      border-color: #555;
+      color: #aaa;
+    }
+
+    body.dark-mode .tag-filter {
+      background-color: #3a3a3a;
+      border-color: #555;
+    }
+
+    body.dark-mode .tag-filter-label {
+      color: #aaa;
+    }
+
+    body.dark-mode .tag-button {
+      background-color: #2d2d2d;
+      border-color: #555;
+      color: #aaa;
+    }
+
+    body.dark-mode .tag-button:hover {
+      background-color: #4a4a4a;
+    }
+
+    body.dark-mode .tag-button.active {
+      background-color: #9e1515;
+      color: #ffffff;
+      border-color: #9e1515;
+    }
+
+    body.dark-mode .article-content {
+      background-color: #3a3a3a;
+      border-color: #555;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .article-content h1,
+    body.dark-mode .article-content h2,
+    body.dark-mode .article-content h3 {
+      color: #ffffff;
+    }
+
+    body.dark-mode .article-content a {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .article-content a:hover {
+      color: #9e1515;
+    }
+
+    body.dark-mode .article-content code {
+      background-color: #2d2d2d;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .article-content pre {
+      background-color: #2d2d2d;
+    }
+
+    body.dark-mode .article-content img {
+      border-color: #555;
+    }
+
+    body.dark-mode .article-content blockquote {
+      color: #aaa;
+    }
+
+    body.dark-mode .home-subtitle {
+      color: #aaa;
+    }
+
+    body.dark-mode .home-image {
+      border-color: #555;
+    }
+
+    body.dark-mode .resume-section h2 {
+      color: #ffffff;
+    }
+
+    body.dark-mode .resume-item .dates {
+      color: #aaa;
+    }
+
+    body.dark-mode .resume-item .role {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .socials-content a {
+      color: #e0e0e0;
     }
 
     /* Main wrapper - creates the centered pane effect */
@@ -39,6 +166,30 @@
 
     .header-content {
       padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .dark-mode-toggle {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 3px;
+      transition: background-color 0.2s;
+      font-family: Verdana, Geneva, sans-serif;
+    }
+
+    .dark-mode-toggle:hover {
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     .header a {
@@ -523,13 +674,16 @@
     <!-- HN-style header -->
     <div class="header">
       <div class="header-content">
-        <a href="#" class="title" onclick="navigate('home')">Robert Steve</a>
-        <span class="separator">|</span>
-        <a href="#writing" onclick="navigate('writing')">writing / projects</a>
-        <span class="separator">|</span>
-        <a href="#resume" onclick="navigate('resume')">resume</a>
-        <span class="separator">|</span>
-        <a href="#contact" onclick="navigate('contact')">contact</a>
+        <div class="header-nav">
+          <a href="#" class="title" onclick="navigate('home')">Robert Steve</a>
+          <span class="separator">|</span>
+          <a href="#writing" onclick="navigate('writing')">writing / projects</a>
+          <span class="separator">|</span>
+          <a href="#resume" onclick="navigate('resume')">resume</a>
+          <span class="separator">|</span>
+          <a href="#contact" onclick="navigate('contact')">contact</a>
+        </div>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()" id="darkModeToggle">🌙</button>
       </div>
     </div>
 
@@ -950,6 +1104,42 @@
       const date = new Date(dateString);
       return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     }
+
+    // Dark mode functionality
+    function toggleDarkMode() {
+      const body = document.body;
+      const toggle = document.getElementById('darkModeToggle');
+      
+      body.classList.toggle('dark-mode');
+      
+      // Update button icon
+      if (body.classList.contains('dark-mode')) {
+        toggle.textContent = '☀️';
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        toggle.textContent = '🌙';
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    }
+
+    // Initialize dark mode on page load
+    function initDarkMode() {
+      const darkMode = localStorage.getItem('darkMode');
+      const toggle = document.getElementById('darkModeToggle');
+      
+      // Default to dark mode if no preference is stored
+      if (darkMode === 'disabled') {
+        document.body.classList.remove('dark-mode');
+        toggle.textContent = '🌙';
+      } else {
+        // Default case (null or 'enabled')
+        document.body.classList.add('dark-mode');
+        toggle.textContent = '☀️';
+      }
+    }
+
+    // Initialize dark mode when page loads
+    window.addEventListener('load', initDarkMode);
   </script>
 </body>
 
