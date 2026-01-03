@@ -1,11 +1,11 @@
 # Time Bugs
-I recently read a blog post [Clock Synchronization Is a Nightmare](https://arpitbhayani.me/blogs/clock-sync-nightmare/) by Arpit Bhayani, which describes the computationally non-trivial problem of syncing clocks. I love this topic because it's typical of the class of problems, and solutions, that we take for granted in everyday engineering (and life!).
+I recently read a blog post [Clock Synchronization Is a Nightmare](https://arpitbhayani.me/blogs/clock-sync-nightmare/) by Arpit Bhayani, which describes the non-trivial problem of syncing clocks. I love this topic because it's typical of the class of problems, and solutions, that we take for granted in everyday engineering (and life!).
 
-So we can discuss how we sync clocks between computers to some tolerance, but the bigger question is: How do we set the clock in the first place? How do we actually track the world's time?
+So we can discuss how we sync clocks between computers to some tolerance, but the bigger question is: how do we set the clock in the first place? How do we actually track the world's time?
 
 I expect that most people would assume a couple things about how we solve this problem in the modern day:
 - There is a single global truth
-- It is unfallable
+- It is infallable
 
 The purpose of this post is to explain that in fact, neither of these assumptions are correct.
 
@@ -20,8 +20,8 @@ The purpose of this post is to explain that in fact, neither of these assumption
 
 Time standards are defined by atomic clocks. The very basic operating principles of these are as follows:
 - A microwave oscillator shoots radiation into some atoms (typically cesium-133)
-- Some atoms are excited by the radiation
-- Lasers are shot at the atoms, the more excited by the radiation they are, the more they light up
+- Some atoms are excited by the radiation. (I would be too!)
+- Lasers are shot at the atoms. The more excited by the radiation they are, the more they light up
 - The radiation frequency is slightly tuned and this process is repeated until it is fully optimized (all the atoms are excited)
 
 At the optimization point, the radiation is tuned to that atom's resonant frequency. The result of this, when working with atoms with known resonant frequencies such as cesium-133, is an _absolutely_ calibrated microwave frequency.
