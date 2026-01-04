@@ -5,7 +5,7 @@ So we can discuss how we sync clocks between computers to some tolerance, but th
 
 I expect that most people would assume a couple things about how we solve this problem in the modern day:
 - There is a single global truth
-- It is infallable
+- It is infallible
 
 The purpose of this post is to explain that in fact, neither of these assumptions are correct.
 
@@ -63,6 +63,6 @@ deviation of UTC.
 
 Of course, this is a small deviation, but still very significant considering the scale of applications, people, science, and industry that time deviation affects.
 
-During the power outages, the NIST's affected clocks were excluded from the UTC average. Even in the case that there was some captured error, it could be accounted for later by the addition or omission of a leap second as necessary. But, this still highlights the sensitivity of this standard, and how our engineered solution to this foundational problem are not infallable. 
+During the power outages, the NIST's affected clocks were excluded from the UTC average. Even in the case that there was some captured error, it could be accounted for later by the addition or omission of a leap second as necessary. But, this still highlights the sensitivity of this standard, and how our engineered solution to this foundational problem are not infallible. 
 
 Imagine the effect of a drift on a larger scale. A power outage, flood in a laboratory, or a cyber attack poisoning a data reporter. How much could our lives change in a second?
